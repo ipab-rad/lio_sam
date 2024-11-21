@@ -1,0 +1,14 @@
+# scripts
+*.sh
+
+# Docker fles itself
+Dockerfile
+docker-compose.yaml
+
+# vscode
+*.vscode*
+
+# Git
+.git
+.gitignore
+.github/*
