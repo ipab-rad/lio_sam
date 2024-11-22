@@ -2,7 +2,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration, Command
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.actions import SetParameter
 
@@ -18,12 +18,21 @@ def generate_launch_description():
         default_value=os.path.join(
             share_dir, 'config', 'tartan_params.yaml'),
         description='FPath to the ROS2 parameters file to use.')
+    
+    map_name_declare = DeclareLaunchArgument(
+        'map_name',
+        default_value='my_map',
+        description='Map name directory.')
 
     set_use_sim_time = SetParameter(name="use_sim_time", value="True")
+
+    # Based on dev.sh docker script
+    MAPS_DIRECTORY = 'maps'
 
     return LaunchDescription([
         set_use_sim_time,
         params_declare,
+        map_name_declare,
         Node(
             package='tf2_ros',
             executable='static_transform_publisher',
@@ -56,7 +65,13 @@ def generate_launch_description():
             package='lio_sam',
             executable='lio_sam_mapOptimization',
             name='lio_sam_mapOptimization',
-            parameters=[parameter_file],
+            parameters=[parameter_file,
+                        {
+                            'savePCDDirectory': PathJoinSubstitution([
+                                "/", MAPS_DIRECTORY, LaunchConfiguration('map_name'), ""
+                            ])
+                        }
+                        ],
             output='screen'
         ),
         Node(

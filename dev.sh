@@ -58,6 +58,8 @@ docker build \
 # Get the absolute path of the script
 SCRIPT_DIR=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
 
+mkdir -p $SCRIPT_DIR/maps
+
 # Run docker image with local code volumes for development
 docker run -it --rm --net host --privileged \
     --gpus all \
@@ -70,5 +72,6 @@ docker run -it --rm --net host --privileged \
     -v $SCRIPT_DIR/cyclone_dds.xml:/opt/ros_ws/src/lio_sam/cyclone_dds.xml \
     -v $SCRIPT_DIR/config:/opt/ros_ws/src/lio_sam/config \
     -v $SCRIPT_DIR/launch:/opt/ros_ws/src/lio_sam/launch \
+    -v $SCRIPT_DIR/maps:/root/maps \
     -v /etc/localtime:/etc/localtime:ro \
     liosam:latest-dev
