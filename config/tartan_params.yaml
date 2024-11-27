@@ -3,7 +3,7 @@
 
     # Topics
     pointCloudTopic: "/sensor/lidar/top/points"  # Point cloud data
-    imuTopic: "/sensor/imu/rear/data"                 # IMU data
+    imuTopic: "/sensor/imu/front/data"                 # IMU data
     odomTopic: "odometry/imu"                    # IMU pre-preintegration odometry, same frequency as IMU
     gpsTopic: "odometry/gpsz"                    # GPS odometry topic from navsat, see module_navsat.launch file
 
@@ -20,7 +20,7 @@
     poseCovThreshold: 25.0                       # m^2, threshold for using GPS data
 
     # Export settings
-    savePCD: true                               # https://github.com/TixiaoShan/LIO-SAM/issues/3
+    savePCD: false                               # https://github.com/TixiaoShan/LIO-SAM/issues/3
     savePCDDirectory: "/maps/my_map"            # in your home folder, starts and ends with "/". Warning: the code deletes "LOAM" folder then recreates it. See "mapOptimization" for implementation
 
     # Sensor Settings
@@ -38,16 +38,17 @@
     imuAccBiasN: 6.4356659353532566e-05
     imuGyrBiasN: 3.5640318696367613e-05
 
-    imuGravity: 9.80511
+    imuGravity: 9.81
     imuRPYWeight: 0.01
 
-    extrinsicTrans:  [ 0.419, -0.355, -0.280]
+    # extrinsicTrans:  [ 0.419, -0.355, -0.280]
+    extrinsicsTrans: [0.0, 0.0, 0.0]
 
-    extrinsicRot:    [ 0.0,  1.0,  0.0,
-                       1.0,  0.0,  0.0,
-                       0.0,  0.0,  1.0 ]
+    extrinsicRot: [ 0.0, -1.0,  0.0,
+                    1.0,  0.0,  0.0,
+                    0.0,  0.0,  1.0 ]
 
-    extrinsicRPY: [ 0.0,  1.0,  0.0,
+    extrinsicRPY: [ 0.0, -1.0,  0.0,
                     1.0,  0.0,  0.0,
                     0.0,  0.0,  1.0 ]
 
@@ -67,8 +68,8 @@
     rotation_tollerance: 1000.0                   # radians
 
     # CPU Params
-    numberOfCores: 8                              # number of cores for mapping optimization
-    mappingProcessInterval: 0.15                  # seconds, regulate mapping frequency
+    numberOfCores: 16                              # number of cores for mapping optimization
+    mappingProcessInterval: 0.1                  # seconds, regulate mapping frequency
 
     # Surrounding map
     surroundingkeyframeAddingDistThreshold: 1.0   # meters, regulate keyframe adding threshold

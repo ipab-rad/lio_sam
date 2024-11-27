@@ -4,10 +4,11 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
-        - /Status1
-        - /PointCloud22/Topic1
-      Splitter Ratio: 0.35384616255760193
+        - /IMU_Path1/Topic1
+        - /MappingOdom1/Topic1
+        - /MappingOdometryIncremental1/Status1
+        - /MappingOdometryIncremental1/Topic1
+      Splitter Ratio: 0.7852941155433655
     Tree Height: 793
   - Class: rviz_common/Selection
     Name: Selection
@@ -46,8 +47,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 21.644344329833984
-        Min Value: -4.014654636383057
+        Max Value: 52.287044525146484
+        Min Value: 9.438141822814941
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -61,7 +62,7 @@ Visualization Manager:
       Max Intensity: 92.95751190185547
       Min Color: 0; 0; 0
       Min Intensity: 5.530245304107666
-      Name: PointCloud2
+      Name: RegisteredMap
       Position Transformer: XYZ
       Selectable: true
       Size (Pixels): 1
@@ -198,8 +199,6 @@ Visualization Manager:
           Value: false
         lidar_left_mount:
           Value: false
-        lidar_link:
-          Value: false
         lidar_ouster_top:
           Value: true
         lidar_right:
@@ -252,116 +251,7 @@ Visualization Manager:
       Tree:
         map:
           odom:
-            base_footprint:
-              base_link:
-                front_axle:
-                  {}
-                rear_axle:
-                  footprint_fl:
-                    {}
-                  footprint_fr:
-                    {}
-                  footprint_rl:
-                    {}
-                  footprint_rr:
-                    {}
-                  radar_bumper_rear_centre_mount:
-                    {}
-                  vehicle_roof_datum:
-                    camera_fsp_l_mount:
-                      camera_fsp_l_sensor:
-                        camera_fsp_l_optical:
-                          {}
-                    camera_fsp_r_mount:
-                      camera_fsp_r_sensor:
-                        camera_fsp_r_optical:
-                          {}
-                    camera_ir1_mount:
-                      {}
-                    camera_ir2_mount:
-                      {}
-                    camera_lspf_l_mount:
-                      camera_lspf_l_sensor:
-                        camera_lspf_l_optical:
-                          {}
-                    camera_lspf_r_mount:
-                      camera_lspf_r_sensor:
-                        camera_lspf_r_optical:
-                          {}
-                    camera_lspr_l_mount:
-                      camera_lspr_l_sensor:
-                        camera_lspr_l_optical:
-                          {}
-                    camera_lspr_r_mount:
-                      camera_lspr_r_sensor:
-                        camera_lspr_r_optical:
-                          {}
-                    camera_rsp_l_mount:
-                      camera_rsp_l_sensor:
-                        camera_rsp_l_optical:
-                          {}
-                    camera_rsp_r_mount:
-                      camera_rsp_r_sensor:
-                        camera_rsp_r_optical:
-                          {}
-                    camera_rspf_l_mount:
-                      camera_rspf_l_sensor:
-                        camera_rspf_l_optical:
-                          {}
-                    camera_rspf_r_mount:
-                      camera_rspf_r_sensor:
-                        camera_rspf_r_optical:
-                          {}
-                    camera_rspr_l_mount:
-                      camera_rspr_l_sensor:
-                        camera_rspr_l_optical:
-                          {}
-                    camera_rspr_r_mount:
-                      camera_rspr_r_sensor:
-                        camera_rspr_r_optical:
-                          {}
-                    camera_tele1_mount:
-                      {}
-                    camera_tele2_mount:
-                      {}
-                    gps_antenna_left_mount:
-                      gps_antenna_left_sensor:
-                        {}
-                    gps_antenna_right_mount:
-                      gps_antenna_right_sensor:
-                        {}
-                    imu_fsp_r_mount:
-                      imu_fsp_r_sensor:
-                        {}
-                    imu_rear_mount:
-                      imu_rear_sensor:
-                        {}
-                    lidar_left_mount:
-                      lidar_left:
-                        {}
-                    lidar_ouster_top:
-                      {}
-                    lidar_right_mount:
-                      lidar_right:
-                        {}
-                    radar_roof_left_front_mount:
-                      {}
-                    radar_roof_left_rear_mount:
-                      {}
-                    radar_roof_right_front_mount:
-                      {}
-                    radar_roof_right_rear_mount:
-                      {}
-                vehicle_bonnet:
-                  front_bumper:
-                    radar_bumper_front_centre_mount:
-                      {}
-                    radar_bumper_front_left_mount:
-                      {}
-                    radar_bumper_front_right_mount:
-                      {}
-            lidar_link:
-              {}
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -374,7 +264,7 @@ Visualization Manager:
       Length: 0.30000001192092896
       Line Style: Billboards
       Line Width: 0.029999999329447746
-      Name: Path
+      Name: MappingPath
       Offset:
         X: 0
         Y: 0
@@ -394,7 +284,7 @@ Visualization Manager:
       Value: true
     - Class: rviz_default_plugins/MarkerArray
       Enabled: true
-      Name: MarkerArray
+      Name: LoopClosure
       Namespaces:
         {}
       Topic:
@@ -422,7 +312,7 @@ Visualization Manager:
       Max Intensity: 4096
       Min Color: 0; 0; 0
       Min Intensity: 0
-      Name: PointCloud2
+      Name: Points
       Position Transformer: ""
       Selectable: true
       Size (Pixels): 3
@@ -437,6 +327,112 @@ Visualization Manager:
         Value: /points
       Use Fixed Frame: true
       Use rainbow: true
+      Value: true
+    - Alpha: 1
+      Buffer Length: 1
+      Class: rviz_default_plugins/Path
+      Color: 255; 0; 255
+      Enabled: true
+      Head Diameter: 0.30000001192092896
+      Head Length: 0.20000000298023224
+      Length: 0.30000001192092896
+      Line Style: Lines
+      Line Width: 0.029999999329447746
+      Name: IMU_Path
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0
+      Pose Color: 255; 85; 255
+      Pose Style: None
+      Radius: 0.029999999329447746
+      Shaft Diameter: 0.10000000149011612
+      Shaft Length: 0.10000000149011612
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /lio_sam/imu/path
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz_default_plugins/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 100
+      Name: MappingOdom
+      Position Tolerance: 1
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Axes
+      Topic:
+        Depth: 1
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /lio_sam/mapping/odometry
+      Value: true
+    - Angle Tolerance: 0.10000000149011612
+      Class: rviz_default_plugins/Odometry
+      Covariance:
+        Orientation:
+          Alpha: 0.5
+          Color: 255; 255; 127
+          Color Style: Unique
+          Frame: Local
+          Offset: 1
+          Scale: 1
+          Value: true
+        Position:
+          Alpha: 0.30000001192092896
+          Color: 204; 51; 204
+          Scale: 1
+          Value: true
+        Value: true
+      Enabled: true
+      Keep: 100
+      Name: MappingOdometryIncremental
+      Position Tolerance: 1
+      Shape:
+        Alpha: 1
+        Axes Length: 1
+        Axes Radius: 0.10000000149011612
+        Color: 255; 25; 0
+        Head Length: 0.30000001192092896
+        Head Radius: 0.10000000149011612
+        Shaft Length: 1
+        Shaft Radius: 0.05000000074505806
+        Value: Arrow
+      Topic:
+        Depth: 1
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Best Effort
+        Value: /lio_sam/mapping/odometry_incremental
       Value: true
   Enabled: true
   Global Options:
@@ -483,26 +479,21 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz_default_plugins/Orbit
-      Distance: 36.7636833190918
+      Angle: -1.5749987363815308
+      Class: rviz_default_plugins/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
-      Focal Point:
-        X: 4.989732265472412
-        Y: -0.21306326985359192
-        Z: 1.8226927518844604
-      Focal Shape Fixed Size: false
-      Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6353989839553833
-      Target Frame: <Fixed Frame>
-      Value: Orbit (rviz)
-      Yaw: 3.1554017066955566
+      Scale: 36.234291076660156
+      Target Frame: base_footprint
+      Value: TopDownOrtho (rviz_default_plugins)
+      X: 0.07234829664230347
+      Y: -0.5510430335998535
     Saved: ~
 Window Geometry:
   Displays:
@@ -510,7 +501,7 @@ Window Geometry:
   Height: 1016
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000020a000003a2fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b000003a2000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000003a2fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003b000003a2000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004420000003efc0100000002fb0000000800540069006d00650100000000000004420000000000000000fb0000000800540069006d0065010000000000000450000000000000000000000429000003a200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd000000040000000000000156000003a2fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005c00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000003b000003a2000000c700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261000000010000010f000003a2fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003b000003a2000000a000fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000004420000003efc0100000002fb0000000800540069006d00650100000000000004420000000000000000fb0000000800540069006d00650100000000000004500000000000000000000004dd000003a200000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Tool Properties:
@@ -518,5 +509,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1870
-  X: 50
+  X: 1970
   Y: 27
