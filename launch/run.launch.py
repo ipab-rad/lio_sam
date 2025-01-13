@@ -11,6 +11,7 @@ def generate_launch_description():
 
     share_dir = get_package_share_directory('lio_sam')
     parameter_file = LaunchConfiguration('params_file')
+    ekf_params_file = LaunchConfiguration('ekf_params_file')
     rviz_config_file = os.path.join(share_dir, 'config', 'tartan.rviz')
 
     params_declare = DeclareLaunchArgument(
@@ -18,6 +19,12 @@ def generate_launch_description():
         default_value=os.path.join(
             share_dir, 'config', 'tartan_params.yaml'),
         description='FPath to the ROS2 parameters file to use.')
+    
+    ekf_params_declare = DeclareLaunchArgument(
+        'ekf_params_file',
+        default_value=os.path.join(
+            share_dir, 'config', 'ekf_params.yaml'),
+        description='EKF params file path.')
     
     map_name_declare = DeclareLaunchArgument(
         'map_name',
@@ -32,6 +39,7 @@ def generate_launch_description():
     return LaunchDescription([
         set_use_sim_time,
         params_declare,
+        ekf_params_declare,
         map_name_declare,
         Node(
             package='tf2_ros',
@@ -39,6 +47,32 @@ def generate_launch_description():
             arguments='0.0 0.0 0.0 0.0 0.0 0.0 map odom'.split(' '),
             parameters=[parameter_file],
             output='screen'
+            ),
+        Node(
+            package='robot_localization',
+            executable='navsat_transform_node',
+            name='navsat',
+            parameters=[ekf_params_file],
+            output='screen',
+            remappings=[
+                # Input
+                ('gps/fix', '/sensor/gps/nav_sat_fix'),
+                ('odometry/filtered', 'odometry/ekf_local'),
+                ('imu', '/sensor/imu/front/data'),
+                # Output
+                ('gps/filtered', 'gps/filtered'),
+                ('odometry/gps', 'odometry/gps')
+                ]
+            ),
+        Node(
+            package='robot_localization',
+            executable='ekf_node',
+            name='ekf_gps',
+            parameters=[ekf_params_file],
+            output='screen',
+            remappings=[
+                ('odometry/filtered', 'odometry/ekf_local')
+                ]
             ),
         Node(
             package='lio_sam',
